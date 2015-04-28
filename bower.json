@@ -1,0 +1,26 @@
+{
+  "name": "browserifytrial",
+  "version": "0.0.0",
+  "authors": [
+    "simon <sitiu@deloitte.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-local-storage": "~0.1.5",
+    "angular": "~1.3.15",
+    "fontawesome": "~4.3.0",
+    "jquery": "~2.1.3",
+    "moment": "~2.10.2",
+    "underscore": "~1.8.3",
+    "bootstrap": "~3.3.4",
+    "vis": "~3.12.0",
+    "handlebars": "~3.0.2"
+  }
+}
