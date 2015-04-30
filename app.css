@@ -6,6 +6,28 @@
     width: 100%;
 }
 
+.vis.timeline .item.dot  {
+    border-color: black;
+    background-color: black;
+    top: 25px;
+}
+
+.vis.timeline .customtime {
+    background-color: transparent;
+    border-color: black;
+    border-width: 1px;
+    border-style: dashed;
+
+}
+.quarterlyRelease {
+    border-style: dotted !important;
+    border-width: 3px !important;
+}
+
+.progress-bar-danger {
+    background-color: rgba(50, 50, 50, 0.4);
+}
+
 /*.vertical-text {
     transform: rotate(90deg);
     transform-origin: left top 0;

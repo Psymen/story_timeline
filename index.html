@@ -7,35 +7,34 @@
     <meta name="description" content="Rally">
 
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="app.css">
+
 
     <script src="bower_components/jquery/dist/jquery.min.js"></script>
     <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="bower_components/moment/min/moment.min.js"></script>
     <script src="bower_components/underscore/underscore-min.js"></script>
     <script src="bower_components/angular/angular.min.js"></script>
-    <script src="bower_components/vis/dist/vis.js"></script>
+    <script src="bower_components/vis/dist/vis.min.js"></script>
     <script src="bower_components/handlebars/handlebars.min.js"></script>
     <link href="bower_components/vis/dist/vis.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="app.css">
+    <base target="_parent" />
 </head>
 
 <script id="item-template" type="text/x-handlebars-template">
-    <div class="container-fluid">
+    <div class="container-fluid" title="{{content}}">
         <div class='row'>
             <div class="col-xs-12 padding-sm">
-                <strong>{{content}}:</strong> {{name}}
+                <span style="z-index:100"><a href={{detailLink}}><strong>{{content}}:</strong> {{name}}</a></span>
             </div>
         </div>
         <div class="row padding-sm">
             <div class="progress">
-                <div class="progress-bar progress-bar-success" style="width: {{planned}}%">
-                    {{planned}}% Planned
+                <div class="progress-bar progress-bar-success" style="width: {{percentDone}}%">
+                    {{percentDone}}%
                 </div>
-                <div class="progress-bar progress-bar-warning progress-bar-striped" style="width: {{committed}}%">
-                    {{committed}}% Committed
-                </div>
-                <div class="progress-bar progress-bar-danger" style="width: {{accepted}}%">
-                    {{accepted}}% Accepted
+                <div class="progress-bar progress-bar-danger" style="width: {{percentIncomplete}}%">
+                    {{percentIncomplete}}%
                 </div>
             </div>
         </div>
@@ -43,14 +42,23 @@
 </script>
 
 <script id="release-template" type="text/x-handlebars-template">
-    <div class="container-fluid">
-        <h4>{{content}}</h4>
+    <div class="container-fluid" title="{{content}}">
+        <strong>{{content}}</strong>
     </div>
 </script>
 
+<script id="hls-template" type="text/x-handlebars-template">
+    <div class="container-fluid" title="{{content}}">
+        <strong>{{content}}</strong>
+    </div>
+</script>
+
+
+<script id="point" type="text/x-handlebars-template">
+    <span title="{{start}}"></span>
+</script>
+
 <body ng-controller="MainCtrl">
-
-
     <div class="container-fluid">
         <br>
         <div id="errorModal" class="modal fade">
@@ -70,13 +78,43 @@
             </div><!-- /.modal-dialog -->
         </div><!-- /.modal -->
 
+        <div id="legend" class="modal fade">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">Legend</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>This timeline shows Epics and HLS against time, with ERMO and monthly releases delineated
+                            <div class="row">
+                                <div class="col-xs-1"></div>
+                                <div class="col-xs-2 timeline customtime"></div>
+                                <div class="col-xs-9">Monthly Release</div>
+                            </div>
+                            <br>
+                            <br>
+                            <div class="row">
+                                <div class="col-xs-1"> </div>
+                                <div class="col-xs-2 timeline customtime quarterlyRelease"></div>
+                                <div class="col-xs-9">ERMO (Quarterly) Release</div>
+                            </div>
+                        </p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Dismiss</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+
         <div class="row">
             <div id="visualization"></div>
         </div>
     </div>
 
     <!-- scripts to be loaded -->
-    <script src="rallyconnector.js"></script>
+    <script src="rallyconnector.min.js"></script>
 
 </body>
 
