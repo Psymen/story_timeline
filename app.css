@@ -9,7 +9,11 @@
 .vis.timeline .item.dot  {
     border-color: black;
     background-color: black;
-    top: 25px;
+    top: 10px !important;
+    border-width: 6px;
+    border-color: rgba(0, 0, 0, 0.8);
+    background-color: transparent;
+    left: 9px !important;
 }
 
 .vis.timeline .customtime {

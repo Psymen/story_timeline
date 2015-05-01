@@ -337,7 +337,6 @@ myApp.controller('MainCtrl',['$scope', '$http','$q', '$anchorScroll', '$location
             var title = "Time: "+ moment($scope.timeline.getCustomTime('releaseline'+(i+1))).format('dddd, MMMM Do YYYY') + ", 0:00:00";
             var release = $scope.releasesFiltered[i].Name.split(" ");
             var releaseName = release[1];
-
             if(_.contains(release,"ERMO")){
                 $(".customtime[title='"+title+"']").addClass('quarterlyRelease');
                 $(".customtime[title='"+title+"']").prepend("<span>&nbsp;&nbsp;<strong>"+releaseName+"</strong></span>");

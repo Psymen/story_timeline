@@ -381,816 +381,7 @@ d._setup(c),!c.partial&&a.useData&&(f=j(b,f));var g=void 0,h=a.useBlockParams?[]
 }var f=this.generateList(b);return f.prepend("{"),f.add("}"),f},generateList:function(a,b){for(var c=this.empty(b),e=0,f=a.length;f>e;e++)e&&c.add(","),c.add(d(a[e],this,b));return c},generateArray:function(a,b){var c=this.generateList(a,b);return c.prepend("["),c.add("]"),c}},b["default"]=e,a.exports=b["default"]}])});
 </script>
     <style>
-.vis .overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-
-  /* Must be displayed above for example selected Timeline items */
-  z-index: 10;
-}
-
-.vis-active {
-  box-shadow: 0 0 10px #86d5f8;
-}
-
-/* override some bootstrap styles screwing up the timelines css */
-
-.vis [class*="span"] {
-  min-height: 0;
-  width: auto;
-}
-
-.vis.timeline {
-}
-
-
-.vis.timeline.root {
-  position: relative;
-  border: 1px solid #bfbfbf;
-
-  overflow: hidden;
-  padding: 0;
-  margin: 0;
-
-  box-sizing: border-box;
-}
-
-.vis.timeline .vispanel {
-  position: absolute;
-
-  padding: 0;
-  margin: 0;
-
-  box-sizing: border-box;
-}
-
-.vis.timeline .vispanel.center,
-.vis.timeline .vispanel.left,
-.vis.timeline .vispanel.right,
-.vis.timeline .vispanel.top,
-.vis.timeline .vispanel.bottom {
-  border: 1px #bfbfbf;
-}
-
-.vis.timeline .vispanel.center,
-.vis.timeline .vispanel.left,
-.vis.timeline .vispanel.right {
-  border-top-style: solid;
-  border-bottom-style: solid;
-  overflow: hidden;
-}
-
-.vis.timeline .vispanel.center,
-.vis.timeline .vispanel.top,
-.vis.timeline .vispanel.bottom {
-  border-left-style: solid;
-  border-right-style: solid;
-}
-
-.vis.timeline .background {
-  overflow: hidden;
-}
-
-.vis.timeline .vispanel > .content {
-  position: relative;
-}
-
-.vis.timeline .vispanel .shadow {
-  position: absolute;
-  width: 100%;
-  height: 1px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.8);
-  /* TODO: find a nice way to ensure shadows are drawn on top of items
-  z-index: 1;
-  */
-}
-
-.vis.timeline .vispanel .shadow.top {
-  top: -1px;
-  left: 0;
-}
-
-.vis.timeline .vispanel .shadow.bottom {
-  bottom: -1px;
-  left: 0;
-}
-
-.vis.timeline .labelset {
-  position: relative;
-
-  overflow: hidden;
-
-  box-sizing: border-box;
-}
-
-.vis.timeline .labelset .vlabel {
-  position: relative;
-  left: 0;
-  top: 0;
-  width: 100%;
-  color: #4d4d4d;
-
-  box-sizing: border-box;
-}
-
-.vis.timeline .labelset .vlabel {
-  border-bottom: 1px solid #bfbfbf;
-}
-
-.vis.timeline .labelset .vlabel:last-child {
-  border-bottom: none;
-}
-
-.vis.timeline .labelset .vlabel .inner {
-  display: inline-block;
-  padding: 5px;
-}
-
-.vis.timeline .labelset .vlabel .inner.hidden {
-  padding: 0;
-}
-
-
-.vis.timeline .itemset {
-  position: relative;
-  padding: 0;
-  margin: 0;
-
-  box-sizing: border-box;
-}
-
-.vis.timeline .itemset .background,
-.vis.timeline .itemset .foreground {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  overflow: visible;
-}
-
-.vis.timeline .axis {
-  position: absolute;
-  width: 100%;
-  height: 0;
-  left: 0;
-  z-index: 1;
-}
-
-.vis.timeline  .foreground .group {
-  position: relative;
-  box-sizing: border-box;
-  border-bottom: 1px solid #bfbfbf;
-}
-
-.vis.timeline  .foreground .group:last-child {
-  border-bottom: none;
-}
-
-
-.vis.timeline .item {
-  position: absolute;
-  color: #1A1A1A;
-  border-color: #97B0F8;
-  border-width: 1px;
-  background-color: #D5DDF6;
-  display: inline-block;
-  padding: 5px;
-}
-
-.vis.timeline .item.selected {
-  border-color: #FFC200;
-  background-color: #FFF785;
-
-  /* z-index must be higher than the z-index of custom time bar and current time bar */
-  z-index: 2;
-}
-
-.vis.timeline .editable .item.selected {
-  cursor: move;
-}
-
-.vis.timeline .item.point.selected {
-  background-color: #FFF785;
-}
-
-.vis.timeline .item.box {
-  text-align: center;
-  border-style: solid;
-  border-radius: 2px;
-}
-
-.vis.timeline .item.point {
-  background: none;
-}
-
-.vis.timeline .item.dot {
-  position: absolute;
-  padding: 0;
-  border-width: 4px;
-  border-style: solid;
-  border-radius: 4px;
-}
-
-.vis.timeline .item.range {
-  border-style: solid;
-  border-radius: 2px;
-  box-sizing: border-box;
-}
-
-.vis.timeline .item.background {
-  overflow: hidden;
-  border: none;
-  background-color: rgba(213, 221, 246, 0.4);
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
-}
-
-.vis.timeline .item.range .content {
-  position: relative;
-  display: inline-block;
-  max-width: 100%;
-  overflow: hidden;
-}
-
-.vis.timeline .item.background .content {
-  position: absolute;
-  display: inline-block;
-  overflow: hidden;
-  max-width: 100%;
-  margin: 5px;
-}
-
-.vis.timeline .item.line {
-  padding: 0;
-  position: absolute;
-  width: 0;
-  border-left-width: 1px;
-  border-left-style: solid;
-}
-
-.vis.timeline .item .content {
-  white-space: nowrap;
-  overflow: hidden;
-}
-
-.vis.timeline .item .delete {
-  background: url('img/timeline/delete.png') no-repeat top center;
-  position: absolute;
-  width: 24px;
-  height: 24px;
-  top: 0;
-  right: -24px;
-  cursor: pointer;
-}
-
-.vis.timeline .item.range .drag-left {
-  position: absolute;
-  width: 24px;
-  max-width: 20%;
-  height: 100%;
-  top: 0;
-  left: -4px;
-
-  cursor: w-resize;
-}
-
-.vis.timeline .item.range .drag-right {
-  position: absolute;
-  width: 24px;
-  max-width: 20%;
-  height: 100%;
-  top: 0;
-  right: -4px;
-
-  cursor: e-resize;
-}
-
-.vis.timeline .timeaxis {
-  position: relative;
-  overflow: hidden;
-}
-
-.vis.timeline .timeaxis.foreground {
-  top: 0;
-  left: 0;
-  width: 100%;
-}
-
-.vis.timeline .timeaxis.background {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-}
-
-.vis.timeline .timeaxis .text {
-  position: absolute;
-  color: #4d4d4d;
-  padding: 3px;
-  white-space: nowrap;
-}
-
-.vis.timeline .timeaxis .text.measure {
-  position: absolute;
-  padding-left: 0;
-  padding-right: 0;
-  margin-left: 0;
-  margin-right: 0;
-  visibility: hidden;
-}
-
-.vis.timeline .timeaxis .grid.vertical {
-  position: absolute;
-  border-left: 1px solid;
-}
-
-.vis.timeline .timeaxis .grid.minor {
-  border-color: #e5e5e5;
-}
-
-.vis.timeline .timeaxis .grid.major {
-  border-color: #bfbfbf;
-}
-
-.vis.timeline .currenttime {
-  background-color: #FF7F6E;
-  width: 2px;
-  z-index: 1;
-}
-.vis.timeline .customtime {
-  background-color: #6E94FF;
-  width: 2px;
-  cursor: move;
-  z-index: 1;
-}
-.vis.timeline.root {
-  /*
-  -webkit-transition: height .4s ease-in-out;
-  transition:         height .4s ease-in-out;
-  */
-}
-
-.vis.timeline .vispanel {
-  /*
-  -webkit-transition: height .4s ease-in-out, top .4s ease-in-out;
-  transition:         height .4s ease-in-out, top .4s ease-in-out;
-  */
-}
-
-.vis.timeline .axis {
-  /*
-  -webkit-transition: top .4s ease-in-out;
-  transition:         top .4s ease-in-out;
-  */
-}
-
-/* TODO: get animation working nicely
-
-.vis.timeline .item {
-  -webkit-transition: top .4s ease-in-out;
-  transition:         top .4s ease-in-out;
-}
-
-.vis.timeline .item.line {
-  -webkit-transition: height .4s ease-in-out, top .4s ease-in-out;
-  transition:         height .4s ease-in-out, top .4s ease-in-out;
-}
-/**/
-
-.vis.timeline .vispanel.background.horizontal .grid.horizontal {
-    position: absolute;
-    width: 100%;
-    height: 0;
-    border-bottom: 1px solid;
-}
-
-.vis.timeline .vispanel.background.horizontal .grid.minor {
-    border-color: #e5e5e5;
-}
-
-.vis.timeline .vispanel.background.horizontal .grid.major {
-    border-color: #bfbfbf;
-}
-
-
-.vis.timeline .dataaxis .yAxis.major {
-    width: 100%;
-    position: absolute;
-    color: #4d4d4d;
-    white-space: nowrap;
-}
-
-.vis.timeline .dataaxis .yAxis.major.measure{
-    padding: 0px 0px 0px 0px;
-    margin: 0px 0px 0px 0px;
-    border: 0px;
-    visibility: hidden;
-    width: auto;
-}
-
-
-.vis.timeline .dataaxis .yAxis.minor{
-    position: absolute;
-    width: 100%;
-    color: #bebebe;
-    white-space: nowrap;
-}
-
-.vis.timeline .dataaxis .yAxis.minor.measure{
-    padding: 0px 0px 0px 0px;
-    margin: 0px 0px 0px 0px;
-    border: 0px;
-    visibility: hidden;
-    width: auto;
-}
-
-.vis.timeline .dataaxis .yAxis.title{
-    position: absolute;
-    color: #4d4d4d;
-    white-space: nowrap;
-    bottom: 20px;
-    text-align: center;
-}
-
-.vis.timeline .dataaxis .yAxis.title.measure{
-    padding: 0px 0px 0px 0px;
-    margin: 0px 0px 0px 0px;
-    visibility: hidden;
-    width: auto;
-}
-
-.vis.timeline .dataaxis .yAxis.title.left {
-    bottom: 0px;
-    -webkit-transform-origin: left top;
-    -moz-transform-origin: left top;
-    -ms-transform-origin: left top;
-    -o-transform-origin: left top;
-    transform-origin: left bottom;
-    -webkit-transform: rotate(-90deg);
-    -moz-transform: rotate(-90deg);
-    -ms-transform: rotate(-90deg);
-    -o-transform: rotate(-90deg);
-    transform: rotate(-90deg);
-}
-
-.vis.timeline .dataaxis .yAxis.title.right {
-    bottom: 0px;
-    -webkit-transform-origin: right bottom;
-    -moz-transform-origin: right bottom;
-    -ms-transform-origin: right bottom;
-    -o-transform-origin: right bottom;
-    transform-origin: right bottom;
-    -webkit-transform: rotate(90deg);
-    -moz-transform: rotate(90deg);
-    -ms-transform: rotate(90deg);
-    -o-transform: rotate(90deg);
-    transform: rotate(90deg);
-}
-
-.vis.timeline .legend {
-    background-color: rgba(247, 252, 255, 0.65);
-    padding: 5px;
-    border-color: #b3b3b3;
-    border-style:solid;
-    border-width: 1px;
-    box-shadow: 2px 2px 10px rgba(154, 154, 154, 0.55);
-}
-
-.vis.timeline .legendText {
-    /*font-size: 10px;*/
-    white-space: nowrap;
-    display: inline-block
-}
-.vis.timeline .graphGroup0 {
-    fill:#4f81bd;
-    fill-opacity:0;
-    stroke-width:2px;
-    stroke: #4f81bd;
-}
-
-.vis.timeline .graphGroup1 {
-    fill:#f79646;
-    fill-opacity:0;
-    stroke-width:2px;
-    stroke: #f79646;
-}
-
-.vis.timeline .graphGroup2 {
-    fill: #8c51cf;
-    fill-opacity:0;
-    stroke-width:2px;
-    stroke: #8c51cf;
-}
-
-.vis.timeline .graphGroup3 {
-    fill: #75c841;
-    fill-opacity:0;
-    stroke-width:2px;
-    stroke: #75c841;
-}
-
-.vis.timeline .graphGroup4 {
-    fill: #ff0100;
-    fill-opacity:0;
-    stroke-width:2px;
-    stroke: #ff0100;
-}
-
-.vis.timeline .graphGroup5 {
-    fill: #37d8e6;
-    fill-opacity:0;
-    stroke-width:2px;
-    stroke: #37d8e6;
-}
-
-.vis.timeline .graphGroup6 {
-    fill: #042662;
-    fill-opacity:0;
-    stroke-width:2px;
-    stroke: #042662;
-}
-
-.vis.timeline .graphGroup7 {
-    fill:#00ff26;
-    fill-opacity:0;
-    stroke-width:2px;
-    stroke: #00ff26;
-}
-
-.vis.timeline .graphGroup8 {
-    fill:#ff00ff;
-    fill-opacity:0;
-    stroke-width:2px;
-    stroke: #ff00ff;
-}
-
-.vis.timeline .graphGroup9 {
-    fill: #8f3938;
-    fill-opacity:0;
-    stroke-width:2px;
-    stroke: #8f3938;
-}
-
-.vis.timeline .fill {
-    fill-opacity:0.1;
-    stroke: none;
-}
-
-
-.vis.timeline .bar {
-    fill-opacity:0.5;
-    stroke-width:1px;
-}
-
-.vis.timeline .point {
-    stroke-width:2px;
-    fill-opacity:1.0;
-}
-
-
-.vis.timeline .legendBackground {
-    stroke-width:1px;
-    fill-opacity:0.9;
-    fill: #ffffff;
-    stroke: #c2c2c2;
-}
-
-
-.vis.timeline .outline {
-    stroke-width:1px;
-    fill-opacity:1;
-    fill: #ffffff;
-    stroke: #e5e5e5;
-}
-
-.vis.timeline .iconFill {
-    fill-opacity:0.3;
-    stroke: none;
-}
-
-
-
-div.network-manipulationDiv {
-  border-width: 0;
-  border-bottom: 1px;
-  border-style:solid;
-  border-color: #d6d9d8;
-  background: #ffffff; /* Old browsers */
-  background: -moz-linear-gradient(top,  #ffffff 0%, #fcfcfc 48%, #fafafa 50%, #fcfcfc 100%); /* FF3.6+ */
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(48%,#fcfcfc), color-stop(50%,#fafafa), color-stop(100%,#fcfcfc)); /* Chrome,Safari4+ */
-  background: -webkit-linear-gradient(top,  #ffffff 0%,#fcfcfc 48%,#fafafa 50%,#fcfcfc 100%); /* Chrome10+,Safari5.1+ */
-  background: -o-linear-gradient(top,  #ffffff 0%,#fcfcfc 48%,#fafafa 50%,#fcfcfc 100%); /* Opera 11.10+ */
-  background: -ms-linear-gradient(top,  #ffffff 0%,#fcfcfc 48%,#fafafa 50%,#fcfcfc 100%); /* IE10+ */
-  background: linear-gradient(to bottom,  #ffffff 0%,#fcfcfc 48%,#fafafa 50%,#fcfcfc 100%); /* W3C */
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#fcfcfc',GradientType=0 ); /* IE6-9 */
-
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 30px;
-}
-
-div.network-manipulation-editMode {
-  position:absolute;
-  left: 0;
-  top: 15px;
-  height: 30px;
-}
-
-div.network-manipulation-closeDiv {
-  position:absolute;
-  right: 0;
-  top: 0;
-  width: 30px;
-  height: 30px;
-
-  background-position: 20px 3px;
-  background-repeat: no-repeat;
-  background-image: url("img/network/cross.png");
-  cursor: pointer;
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-}
-
-div.network-manipulation-closeDiv:hover {
-  opacity: 0.6;
-}
-
-div.network-manipulationUI {
-    position:relative;
-    top:-7px;
-  font-family: verdana;
-  font-size: 12px;
-  -moz-border-radius: 15px;
-  border-radius: 15px;
-  display:inline-block;
-  background-position: 0px 0px;
-  background-repeat:no-repeat;
-  height:24px;
-  margin: 0px 0px 0px 10px;
-  vertical-align:middle;
-  cursor: pointer;
-  padding: 0px 8px 0px 8px;
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-}
-
-div.network-manipulationUI:hover {
-  box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.20);
-}
-
-div.network-manipulationUI:active {
-  box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.50);
-}
-
-div.network-manipulationUI.back {
-  background-image: url("img/network/backIcon.png");
-}
-
-div.network-manipulationUI.none:hover {
-  box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.0);
-  cursor: default;
-}
-div.network-manipulationUI.none:active {
-  box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.0);
-}
-div.network-manipulationUI.none {
-  padding: 0;
-}
-div.network-manipulationUI.notification{
-  margin: 2px;
-  font-weight: bold;
-}
-
-div.network-manipulationUI.add {
-  background-image: url("img/network/addNodeIcon.png");
-}
-
-div.network-manipulationUI.edit {
-  background-image: url("img/network/editIcon.png");
-}
-
-div.network-manipulationUI.edit.editmode {
-  background-color: #fcfcfc;
-  border-style:solid;
-  border-width:1px;
-  border-color: #cccccc;
-}
-
-div.network-manipulationUI.connect {
-  background-image: url("img/network/connectIcon.png");
-}
-
-div.network-manipulationUI.delete {
-  background-image: url("img/network/deleteIcon.png");
-}
-/* top right bottom left */
-div.network-manipulationLabel {
-  margin: 0px 0px 0px 23px;
-  line-height: 25px;
-}
-div.network-seperatorLine {
-  display:inline-block;
-  width:1px;
-  height:20px;
-  background-color: #bdbdbd;
-  margin: 5px 7px 0px 15px;
-}
-
-div.network-navigation_wrapper {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-}
-div.network-navigation {
-    width:34px;
-    height:34px;
-    -moz-border-radius: 17px;
-    border-radius: 17px;
-    position:absolute;
-    display:inline-block;
-    background-position: 2px 2px;
-    background-repeat:no-repeat;
-    cursor: pointer;
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    -khtml-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-}
-
-div.network-navigation:hover {
-    box-shadow: 0px 0px 3px 3px rgba(56, 207, 21, 0.30);
-}
-
-div.network-navigation:active {
-    box-shadow: 0px 0px 1px 3px rgba(56, 207, 21, 0.95);
-}
-
-div.network-navigation.up {
-    background-image: url("img/network/upArrow.png");
-    bottom:50px;
-    left:55px;
-}
-div.network-navigation.down {
-    background-image: url("img/network/downArrow.png");
-    bottom:10px;
-    left:55px;
-}
-div.network-navigation.left {
-    background-image: url("img/network/leftArrow.png");
-    bottom:10px;
-    left:15px;
-}
-div.network-navigation.right {
-    background-image: url("img/network/rightArrow.png");
-    bottom:10px;
-    left:95px;
-}
-div.network-navigation.zoomIn {
-    background-image: url("img/network/plus.png");
-    bottom:10px;
-    right:15px;
-}
-div.network-navigation.zoomOut {
-    background-image: url("img/network/minus.png");
-    bottom:10px;
-    right:55px;
-}
-div.network-navigation.zoomExtends {
-    background-image: url("img/network/zoomExtends.png");
-    bottom:50px;
-    right:15px;
-}
-div.network-tooltip {
-  position: absolute;
-  visibility: hidden;
-  padding: 5px;
-  white-space: nowrap;
-
-  -moz-border-radius: 3px;
-  -webkit-border-radius: 3px;
-  border-radius: 3px;
-  border: 1px solid;
-
-  box-shadow: 3px 3px 10px rgba(128, 128, 128, 0.5);
-}
+div.network-manipulation-closeDiv,div.network-manipulationUI,div.network-navigation{-moz-user-select:none;-ms-user-select:none;-webkit-user-select:none;-khtml-user-select:none}div.network-manipulation-closeDiv,div.network-manipulationUI{background-repeat:no-repeat;cursor:pointer;-webkit-touch-callout:none}.vis .overlay{position:absolute;top:0;left:0;width:100%;height:100%;z-index:10}.vis-active{box-shadow:0 0 10px #86d5f8}.vis [class*=span]{min-height:0;width:auto}.vis.timeline.root{position:relative;border:1px solid #bfbfbf;overflow:hidden;padding:0;margin:0;box-sizing:border-box}.vis.timeline .vispanel{position:absolute;padding:0;margin:0;box-sizing:border-box}.vis.timeline .vispanel.bottom,.vis.timeline .vispanel.center,.vis.timeline .vispanel.left,.vis.timeline .vispanel.right,.vis.timeline .vispanel.top{border:1px #bfbfbf}.vis.timeline .vispanel.center,.vis.timeline .vispanel.left,.vis.timeline .vispanel.right{border-top-style:solid;border-bottom-style:solid;overflow:hidden}.vis.timeline .vispanel.bottom,.vis.timeline .vispanel.center,.vis.timeline .vispanel.top{border-left-style:solid;border-right-style:solid}.vis.timeline .background{overflow:hidden}.vis.timeline .vispanel>.content{position:relative}.vis.timeline .vispanel .shadow{position:absolute;width:100%;height:1px;box-shadow:0 0 10px rgba(0,0,0,.8)}.vis.timeline .vispanel .shadow.top{top:-1px;left:0}.vis.timeline .vispanel .shadow.bottom{bottom:-1px;left:0}.vis.timeline .labelset{position:relative;overflow:hidden;box-sizing:border-box}.vis.timeline .labelset .vlabel{position:relative;left:0;top:0;width:100%;color:#4d4d4d;box-sizing:border-box;border-bottom:1px solid #bfbfbf}.vis.timeline .labelset .vlabel:last-child{border-bottom:none}.vis.timeline .labelset .vlabel .inner{display:inline-block;padding:5px}.vis.timeline .labelset .vlabel .inner.hidden{padding:0}.vis.timeline .itemset{position:relative;padding:0;margin:0;box-sizing:border-box}.vis.timeline .itemset .background,.vis.timeline .itemset .foreground{position:absolute;width:100%;height:100%;overflow:visible}.vis.timeline .axis{position:absolute;width:100%;height:0;left:0;z-index:1}.vis.timeline .foreground .group{position:relative;box-sizing:border-box;border-bottom:1px solid #bfbfbf}.vis.timeline .foreground .group:last-child{border-bottom:none}.vis.timeline .item{position:absolute;color:#1A1A1A;border-color:#97B0F8;border-width:1px;background-color:#D5DDF6;display:inline-block;padding:5px}.vis.timeline .item.selected{border-color:#FFC200;background-color:#FFF785;z-index:2}.vis.timeline .editable .item.selected{cursor:move}.vis.timeline .item.point.selected{background-color:#FFF785}.vis.timeline .item.box{text-align:center;border-style:solid;border-radius:2px}.vis.timeline .item.point{background:0 0}.vis.timeline .item.dot{position:absolute;padding:0;border-width:4px;border-style:solid;border-radius:4px}.vis.timeline .item.range{border-style:solid;border-radius:2px;box-sizing:border-box}.vis.timeline .item.background{overflow:hidden;border:none;background-color:rgba(213,221,246,.4);box-sizing:border-box;padding:0;margin:0}.vis.timeline .item.range .content{position:relative;display:inline-block;max-width:100%;overflow:hidden}.vis.timeline .item.background .content{position:absolute;display:inline-block;overflow:hidden;max-width:100%;margin:5px}.vis.timeline .item.line{padding:0;position:absolute;width:0;border-left-width:1px;border-left-style:solid}.vis.timeline .item .content{white-space:nowrap;overflow:hidden}.vis.timeline .item .delete{background:url(img/timeline/delete.png)top center no-repeat;position:absolute;width:24px;height:24px;top:0;right:-24px;cursor:pointer}.vis.timeline .item.range .drag-left{position:absolute;width:24px;max-width:20%;height:100%;top:0;left:-4px;cursor:w-resize}.vis.timeline .item.range .drag-right{position:absolute;width:24px;max-width:20%;height:100%;top:0;right:-4px;cursor:e-resize}.vis.timeline .timeaxis{position:relative;overflow:hidden}.vis.timeline .timeaxis.foreground{top:0;left:0;width:100%}.vis.timeline .timeaxis.background{position:absolute;top:0;left:0;width:100%;height:100%}.vis.timeline .timeaxis .text{position:absolute;color:#4d4d4d;padding:3px;white-space:nowrap}.vis.timeline .timeaxis .text.measure{position:absolute;padding-left:0;padding-right:0;margin-left:0;margin-right:0;visibility:hidden}.vis.timeline .timeaxis .grid.vertical{position:absolute;border-left:1px solid}.vis.timeline .timeaxis .grid.minor{border-color:#e5e5e5}.vis.timeline .timeaxis .grid.major{border-color:#bfbfbf}.vis.timeline .currenttime{background-color:#FF7F6E;width:2px;z-index:1}.vis.timeline .customtime{background-color:#6E94FF;width:2px;cursor:move;z-index:1}.vis.timeline .vispanel.background.horizontal .grid.horizontal{position:absolute;width:100%;height:0;border-bottom:1px solid}.vis.timeline .vispanel.background.horizontal .grid.minor{border-color:#e5e5e5}.vis.timeline .vispanel.background.horizontal .grid.major{border-color:#bfbfbf}.vis.timeline .dataaxis .yAxis.major{width:100%;position:absolute;color:#4d4d4d;white-space:nowrap}.vis.timeline .dataaxis .yAxis.major.measure{padding:0;margin:0;border:0;visibility:hidden;width:auto}.vis.timeline .dataaxis .yAxis.minor{position:absolute;width:100%;color:#bebebe;white-space:nowrap}.vis.timeline .dataaxis .yAxis.minor.measure{padding:0;margin:0;border:0;visibility:hidden;width:auto}.vis.timeline .dataaxis .yAxis.title{position:absolute;color:#4d4d4d;white-space:nowrap;bottom:20px;text-align:center}.vis.timeline .dataaxis .yAxis.title.measure{padding:0;margin:0;visibility:hidden;width:auto}.vis.timeline .dataaxis .yAxis.title.left{bottom:0;-webkit-transform-origin:left top;-moz-transform-origin:left top;-ms-transform-origin:left top;-o-transform-origin:left top;transform-origin:left bottom;-webkit-transform:rotate(-90deg);-moz-transform:rotate(-90deg);-ms-transform:rotate(-90deg);-o-transform:rotate(-90deg);transform:rotate(-90deg)}.vis.timeline .dataaxis .yAxis.title.right{bottom:0;-webkit-transform-origin:right bottom;-moz-transform-origin:right bottom;-ms-transform-origin:right bottom;-o-transform-origin:right bottom;transform-origin:right bottom;-webkit-transform:rotate(90deg);-moz-transform:rotate(90deg);-ms-transform:rotate(90deg);-o-transform:rotate(90deg);transform:rotate(90deg)}.vis.timeline .legend{background-color:rgba(247,252,255,.65);padding:5px;border-color:#b3b3b3;border-style:solid;border-width:1px;box-shadow:2px 2px 10px rgba(154,154,154,.55)}.vis.timeline .legendText{white-space:nowrap;display:inline-block}.vis.timeline .graphGroup0{fill:#4f81bd;fill-opacity:0;stroke-width:2px;stroke:#4f81bd}.vis.timeline .graphGroup1{fill:#f79646;fill-opacity:0;stroke-width:2px;stroke:#f79646}.vis.timeline .graphGroup2{fill:#8c51cf;fill-opacity:0;stroke-width:2px;stroke:#8c51cf}.vis.timeline .graphGroup3{fill:#75c841;fill-opacity:0;stroke-width:2px;stroke:#75c841}.vis.timeline .graphGroup4{fill:#ff0100;fill-opacity:0;stroke-width:2px;stroke:#ff0100}.vis.timeline .graphGroup5{fill:#37d8e6;fill-opacity:0;stroke-width:2px;stroke:#37d8e6}.vis.timeline .graphGroup6{fill:#042662;fill-opacity:0;stroke-width:2px;stroke:#042662}.vis.timeline .graphGroup7{fill:#00ff26;fill-opacity:0;stroke-width:2px;stroke:#00ff26}.vis.timeline .graphGroup8{fill:#f0f;fill-opacity:0;stroke-width:2px;stroke:#f0f}.vis.timeline .graphGroup9{fill:#8f3938;fill-opacity:0;stroke-width:2px;stroke:#8f3938}.vis.timeline .fill{fill-opacity:.1;stroke:none}.vis.timeline .bar{fill-opacity:.5;stroke-width:1px}.vis.timeline .point{stroke-width:2px;fill-opacity:1}.vis.timeline .legendBackground{stroke-width:1px;fill-opacity:.9;fill:#fff;stroke:#c2c2c2}.vis.timeline .outline{stroke-width:1px;fill-opacity:1;fill:#fff;stroke:#e5e5e5}.vis.timeline .iconFill{fill-opacity:.3;stroke:none}div.network-manipulationDiv{border-width:0;border-bottom:1px;border-style:solid;border-color:#d6d9d8;background:#fff;background:-moz-linear-gradient(top,#fff 0,#fcfcfc 48%,#fafafa 50%,#fcfcfc 100%);background:-webkit-gradient(linear,left top,left bottom,color-stop(0,#fff),color-stop(48%,#fcfcfc),color-stop(50%,#fafafa),color-stop(100%,#fcfcfc));background:-webkit-linear-gradient(top,#fff 0,#fcfcfc 48%,#fafafa 50%,#fcfcfc 100%);background:-o-linear-gradient(top,#fff 0,#fcfcfc 48%,#fafafa 50%,#fcfcfc 100%);background:-ms-linear-gradient(top,#fff 0,#fcfcfc 48%,#fafafa 50%,#fcfcfc 100%);background:linear-gradient(to bottom,#fff 0,#fcfcfc 48%,#fafafa 50%,#fcfcfc 100%);filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#fcfcfc', GradientType=0);position:absolute;left:0;top:0;width:100%;height:30px}div.network-manipulation-editMode{position:absolute;left:0;top:15px;height:30px}div.network-manipulation-closeDiv{position:absolute;right:0;top:0;width:30px;height:30px;background-position:20px 3px;background-image:url(img/network/cross.png);user-select:none}div.network-manipulation-closeDiv:hover{opacity:.6}div.network-manipulationUI{position:relative;top:-7px;font-family:verdana;font-size:12px;-moz-border-radius:15px;border-radius:15px;display:inline-block;background-position:0 0;height:24px;margin:0 0 0 10px;vertical-align:middle;padding:0 8px;user-select:none}div.network-manipulationUI:hover{box-shadow:1px 1px 8px rgba(0,0,0,.2)}div.network-manipulationUI:active{box-shadow:1px 1px 8px rgba(0,0,0,.5)}div.network-manipulationUI.back{background-image:url(img/network/backIcon.png)}div.network-manipulationUI.none:hover{box-shadow:1px 1px 8px transparent;cursor:default}div.network-manipulationUI.none:active{box-shadow:1px 1px 8px transparent}div.network-manipulationUI.none{padding:0}div.network-manipulationUI.notification{margin:2px;font-weight:700}div.network-manipulationUI.add{background-image:url(img/network/addNodeIcon.png)}div.network-manipulationUI.edit{background-image:url(img/network/editIcon.png)}div.network-manipulationUI.edit.editmode{background-color:#fcfcfc;border-style:solid;border-width:1px;border-color:#ccc}div.network-manipulationUI.connect{background-image:url(img/network/connectIcon.png)}div.network-manipulationUI.delete{background-image:url(img/network/deleteIcon.png)}div.network-manipulationLabel{margin:0 0 0 23px;line-height:25px}div.network-seperatorLine{display:inline-block;width:1px;height:20px;background-color:#bdbdbd;margin:5px 7px 0 15px}div.network-navigation_wrapper{position:absolute;left:0;top:0;width:100%;height:100%}div.network-navigation{width:34px;height:34px;-moz-border-radius:17px;border-radius:17px;position:absolute;display:inline-block;background-position:2px 2px;background-repeat:no-repeat;cursor:pointer;-webkit-touch-callout:none;user-select:none}div.network-navigation:hover{box-shadow:0 0 3px 3px rgba(56,207,21,.3)}div.network-navigation:active{box-shadow:0 0 1px 3px rgba(56,207,21,.95)}div.network-navigation.up{background-image:url(img/network/upArrow.png);bottom:50px;left:55px}div.network-navigation.down{background-image:url(img/network/downArrow.png);bottom:10px;left:55px}div.network-navigation.left{background-image:url(img/network/leftArrow.png);bottom:10px;left:15px}div.network-navigation.right{background-image:url(img/network/rightArrow.png);bottom:10px;left:95px}div.network-navigation.zoomIn{background-image:url(img/network/plus.png);bottom:10px;right:15px}div.network-navigation.zoomOut{background-image:url(img/network/minus.png);bottom:10px;right:55px}div.network-navigation.zoomExtends{background-image:url(img/network/zoomExtends.png);bottom:50px;right:15px}div.network-tooltip{position:absolute;visibility:hidden;padding:5px;white-space:nowrap;-moz-border-radius:3px;-webkit-border-radius:3px;border-radius:3px;border:1px solid;box-shadow:3px 3px 10px rgba(128,128,128,.5)}
 </style>
     <style>
 .padding-sm {
@@ -1204,7 +395,11 @@ div.network-tooltip {
 .vis.timeline .item.dot  {
     border-color: black;
     background-color: black;
-    top: 25px;
+    top: 10px !important;
+    border-width: 6px;
+    border-color: rgba(0, 0, 0, 0.8);
+    background-color: transparent;
+    left: 9px !important;
 }
 
 .vis.timeline .customtime {
@@ -1261,6 +456,12 @@ div.network-tooltip {
 </script>
 
 <script id="release-template" type="text/x-handlebars-template">
+    <div class="container-fluid" title="{{content}}">
+        <strong>{{content}}</strong>
+    </div>
+</script>
+
+<script id="hls-template" type="text/x-handlebars-template">
     <div class="container-fluid" title="{{content}}">
         <strong>{{content}}</strong>
     </div>
@@ -1331,14 +532,15 @@ div.network-tooltip {
 /**
  * PMO Report
  * @author Simon Tiu
- * @description This is a PMO report
+ * @description This is a PMO report prototype
  * @version 1.0.0
  */
 
 var templates = {
     template1: Handlebars.compile(document.getElementById('item-template').innerHTML),
     template2: Handlebars.compile(document.getElementById('release-template').innerHTML),
-    point: Handlebars.compile(document.getElementById('point').innerHTML)
+    point: Handlebars.compile(document.getElementById('point').innerHTML),
+    hlsTemplate: Handlebars.compile(document.getElementById('hls-template').innerHTML)
 };
 
 // Start: Configuration for development ===============================================================
@@ -1450,7 +652,7 @@ myApp.controller('MainCtrl',['$scope', '$http','$q', '$anchorScroll', '$location
             $scope.queryArtifactsAndStore("PortfolioItem/HighLevelScope"), // then get hls
             $scope.queryArtifactsAndStore("iteration")
                 ]).then(function(data){
-                    console.log("------------ All data has been loaded");
+                    // console.log("------------ All data has been loaded");
 
                     $scope.releases = data[0].QueryResult.Results; //
                     $scope.releasesFiltered = filterReleases($scope.releases);
@@ -1458,14 +660,6 @@ myApp.controller('MainCtrl',['$scope', '$http','$q', '$anchorScroll', '$location
                     $scope.epicData = data[1].QueryResult.Results;
                     $scope.hlsData = data[2].QueryResult.Results;
                     $scope.iterationData = data[3].QueryResult.Results;
-
-
-                    if($scope.releasesFiltered.length < 4) {
-                        showError("Not enough release data has been set in Rally to build board (must have at least 4 releases)");
-                    }
-                    else {
-                        setDate($scope.releases);
-                    }
 
                     $scope.buildTimeline();
                 },
@@ -1480,19 +674,58 @@ myApp.controller('MainCtrl',['$scope', '$http','$q', '$anchorScroll', '$location
     $scope.buildTimeline = function() {
 
         // Get epic data in timeline format
-        $scope.data = $scope.epicToTimelineFormat($scope.epicData);
+        var results = $scope.epicToTimelineFormat($scope.epicData);
+        $scope.data = results[0]; // contains only epics
 
         // Get rid of redundancies
         var uniqueEpicGroups = _.uniq($scope.data, 'group');
         var groupsRaw = [];
+        var hlsItemArray = [];
 
         // Build HLS groups
         for(var i=0; i< uniqueEpicGroups.length; i++) {
             groupsRaw.push({
                 id: uniqueEpicGroups[i].group,
-                content: uniqueEpicGroups[i].hlsName
+                content: uniqueEpicGroups[i].hlsName,
+                subgroupOrder: function (a,b) {
+                    return a.subgroupOrder - b.subgroupOrder;
+                }
+
             });
         }
+
+        for(var j=0; j<$scope.data.length; j++) {
+            var currentEpic = $scope.data[j];
+            var currentHLSIndex = _.findIndex(hlsItemArray, {content: currentEpic.hlsRealName});
+
+            if(currentHLSIndex === -1){
+                hlsItemArray.push({
+                    content: currentEpic.hlsRealName,
+                    start: currentEpic.start,
+                    end: currentEpic.end,
+                    group: currentEpic.group,
+                    template: 'hlsTemplate',
+                    style: "background-color: rgba(24, 51, 163, 0.83); color: white; border-width:0; height:27px",
+                    subgroupOrder:0,
+                    subgroup: 'hls'
+                });
+            }
+            else {
+                var hlsToBeEdited = hlsItemArray[currentHLSIndex];
+                // need to compare dates
+                // check if start date is before
+                if(moment(currentEpic.start).isBefore(hlsToBeEdited.start)){
+                    hlsToBeEdited.start = currentEpic.start;
+                }
+                // check if end date if after
+                if(moment(currentEpic.end).isBefore(hlsToBeEdited.end)){
+                    hlsToBeEdited.end = currentEpic.end;
+                }
+            }
+        }
+        $scope.hlsItemArray = hlsItemArray;
+        // hlsItemArray now contains all HLS items
+
 
         // Build group for sprints
         groupsRaw.push({
@@ -1516,11 +749,13 @@ myApp.controller('MainCtrl',['$scope', '$http','$q', '$anchorScroll', '$location
                 end: moment($scope.iterationData[i].EndDate).format('YYYY-MM-DD'),
                 group: 0,
                 template: "template2",
-                style: "background-color: rgba(61, 63, 71, 0.85); color: white; border-width:0;"
+                style: "background-color: rgba(61, 63, 71, 0.85); color: white; border-width:0; height:27px"
             });
             }
-
         }
+        // data now contains iterations and epics
+        $scope.data = hlsItemArray.concat($scope.data, results[1]); // add hls and release data
+        // data now contains iterations, epics, hls, and release
 
         // create data and a Timeline
         var container = document.getElementById('visualization');
@@ -1528,6 +763,7 @@ myApp.controller('MainCtrl',['$scope', '$http','$q', '$anchorScroll', '$location
         var options = { // configuration options
             zoomable: false,
             moveable: true,
+            editable: false,
             selectable: false,
             template: function(item) {
                 if(!item.template){
@@ -1541,21 +777,27 @@ myApp.controller('MainCtrl',['$scope', '$http','$q', '$anchorScroll', '$location
             },
             orientation: 'top',
             stack: false
-            // margin: {
-            //     item: 10, // minimal margin between items
-            //     axis: 5   // minimal margin between items and the axis
-            // },
         };
         $scope.timeline = new vis.Timeline(container, items, options);
 
         // add release lines
         for(var i=0;i<$scope.releasesFiltered.length;i++){
             // console.log('add'+ moment($scope.releasesFiltered[i].ReleaseDate).format('YYYY-MM-DD'));
-            $scope.RL.push($scope.timeline.addCustomTime(moment($scope.releasesFiltered[i].ReleaseDate).format('YYYY-MM-DD'), "releaseline"+(i+1)));
+            var timelineID = $scope.timeline.addCustomTime(moment($scope.releasesFiltered[i].ReleaseDate).format('YYYY-MM-DD'), "releaseline"+(i+1));
+            $scope.RL.push({
+                id: timelineID,
+                correctTime: $scope.timeline.getCustomTime(timelineID)
+            });
         }
         $scope.timeline.setGroups(groups);
         $scope.timeline.fit();
         drawReleaseDates();
+
+        $scope.timeline.on('timechanged',function(properties){
+            var currentID = properties.id;
+            var oldRecord = _.where($scope.RL, {id: currentID})[0];
+            $scope.timeline.setCustomTime(oldRecord.correctTime, currentID);
+        });
 
     };
 
@@ -1571,39 +813,21 @@ myApp.controller('MainCtrl',['$scope', '$http','$q', '$anchorScroll', '$location
         return returnArray;
     };
 
-    var setDate = function(releases) {
-        $scope.now = moment(); // get today
-
-        // get the next three releaes dates and the start date of the current release schedule
-        var counter = 0;
-        $scope.releaseDates = [];
-        for(var i=0, len=$scope.releases.length; i<len; i++) {
-            var thisReleaseDate = moment($scope.releases[i].ReleaseDate);
-            if($scope.now.isAfter(thisReleaseDate)){
-                counter++;
-                $scope.releaseDates.push(thisReleaseDate.format('MMMM Do YYYY'));
-
-                if(counter >= 4){
-                    break;
-                }
-            }
-        }
-        // console.log(counter);
-    };
-
     // This functiont will also purge epics with no release
     $scope.epicToTimelineFormat = function(release){
-        var returnArray = [];
+        var epicItems = [];
+        var releaseItems = []
 
         angular.forEach(release, function(d,index) {
             if(d.PlannedStartDate && d.PlannedEndDate && d.Release && d.Parent){
                 var parentHLS = _.where($scope.hlsData, {_refObjectUUID: d.Parent._refObjectUUID})[0];
                 // console.log('done: ',d.PercentDoneByStoryCount);
-                returnArray.push({
+                epicItems.push({
                     id : index,
                     name: d.Name,
                     content : d.FormattedID,
                     hlsName: parentHLS.FormattedID,
+                    hlsRealName: parentHLS.Name,
                     detailLink: buildReferenceLink(d),
                     // description: d.Description,
                     start : moment(d.PlannedStartDate).format('YYYY-MM-DD'),
@@ -1615,14 +839,14 @@ myApp.controller('MainCtrl',['$scope', '$http','$q', '$anchorScroll', '$location
                     accepted: 10,
                     group: d.Parent._refObjectUUID,
                     subgroup: d.FormattedID.substr(4),
-                    subgroupOrder: parseInt(d.FormattedID.substr(3)),
+                    subgroupOrder: 1,
                     template: "template1",
                     style:"height:60px; border-width:0;"
                 });
 
                 // push release dates as well
                 var currentRelease = _.where($scope.releases,{_refObjectUUID: d.Release._refObjectUUID})[0];
-                returnArray.push({
+                releaseItems.push({
                     content: currentRelease.Name,
                     id: "release"+index,
                     type: 'point',
@@ -1632,7 +856,7 @@ myApp.controller('MainCtrl',['$scope', '$http','$q', '$anchorScroll', '$location
                 });
             }
         });
-        return returnArray;
+        return [epicItems, releaseItems];
     };
 
     /**
@@ -1649,12 +873,6 @@ myApp.controller('MainCtrl',['$scope', '$http','$q', '$anchorScroll', '$location
                 $(".customtime[title='"+title+"']").addClass('quarterlyRelease');
                 $(".customtime[title='"+title+"']").prepend("<span>&nbsp;&nbsp;<strong>"+releaseName+"</strong></span>");
             }
-            else {
-                $(".customtime[title='"+title+"']").prepend("<span>&nbsp;&nbsp;"+releaseName+" (MR)</span>");
-            }
-
-
-            console.log("Drew: [" + releaseName + "] on : " + title);
         }
     };
 

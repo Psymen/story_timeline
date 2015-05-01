@@ -16,7 +16,7 @@
     <script src="bower_components/angular/angular.min.js"></script>
     <script src="bower_components/vis/dist/vis.min.js"></script>
     <script src="bower_components/handlebars/handlebars.min.js"></script>
-    <link href="bower_components/vis/dist/vis.css" rel="stylesheet" type="text/css" />
+    <link href="bower_components/vis/dist/vis.min.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="app.css">
     <base target="_parent" />
 </head>
@@ -34,7 +34,6 @@
                     {{percentDone}}%
                 </div>
                 <div class="progress-bar progress-bar-danger" style="width: {{percentIncomplete}}%">
-                    {{percentIncomplete}}%
                 </div>
             </div>
         </div>
@@ -114,7 +113,7 @@
     </div>
 
     <!-- scripts to be loaded -->
-    <script src="rallyconnector.min.js"></script>
+    <script src="rallyconnector.js"></script>
 
 </body>
 
