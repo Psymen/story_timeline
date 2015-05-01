@@ -176,7 +176,8 @@ myApp.controller('MainCtrl',['$scope', '$http','$q', '$anchorScroll', '$location
                     template: 'hlsTemplate',
                     style: "background-color: rgba(24, 51, 163, 0.83); color: white; border-width:0; height:27px",
                     subgroupOrder:0,
-                    subgroup: 'hls'
+                    subgroup: 'hls',
+                    detailLink: buildReferenceLink(_.where($scope.hlsData, {FormattedID: currentEpic.hlsName})[0])
                 });
             }
             else {
@@ -344,11 +345,11 @@ myApp.controller('MainCtrl',['$scope', '$http','$q', '$anchorScroll', '$location
         }
     };
 
-    var buildReferenceLink = function(epic) {
+    var buildReferenceLink = function(obj) {
         var baseURL = "https://us1.rallydev.com/#/";
-        var type = epic._type;
-        var refID = epic.ObjectID;
-        var project = epic.Project._ref.split("/");
+        var type = obj._type;
+        var refID = obj.ObjectID;
+        var project = obj.Project._ref.split("/");
         var projectID = project[project.length-1];
         var addOn = "";
 
@@ -362,7 +363,6 @@ myApp.controller('MainCtrl',['$scope', '$http','$q', '$anchorScroll', '$location
             addOn = "/detail/userstory/"+ refID;
         }
         return baseURL + projectID + addOn;
-        // return "#/" + projectID + addOn;
     };
     var showError = function(message) {
         $scope.errorMessage = message;
