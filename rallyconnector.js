@@ -289,7 +289,7 @@ myApp.controller('MainCtrl',['$scope', '$http','$q', '$anchorScroll', '$location
     // This functiont will also purge epics with no release
     $scope.epicToTimelineFormat = function(release){
         var epicItems = [];
-        var releaseItems = []
+        var releaseItems = [];
 
         angular.forEach(release, function(d,index) {
             if(d.PlannedStartDate && d.PlannedEndDate && d.Release && d.Parent){

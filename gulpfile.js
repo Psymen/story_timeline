@@ -21,7 +21,7 @@ gulp.task('inline', function() {
 gulp.task('minify',function() {
     gulp.src('rallyconnector.js')
         .pipe(stripDebug())
-        .pipe(uglify())
+        // .pipe(uglify())
         .pipe(rename('rallyconnector.min.js'))
         .pipe(gulp.dest('./'));
 
@@ -32,4 +32,4 @@ gulp.task('watch',function() {
     gulp.watch('rallyconnector.js',['minify']);
 });
 
-gulp.task('default', ['inline']);
+gulp.task('default', ['minify','inline']);
