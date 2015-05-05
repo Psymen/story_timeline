@@ -14,6 +14,10 @@ var templates = {
 
 // Start: Configuration for development ===============================================================
 var apikey = "_Tgxq2pPzSNSlrvt2fapH0YW1bc5okjFhvj5ortDJas"; // Rally API Key for workspace
+var workspace = "19718879730"; // ID for the workspace
+var project = "25211977995"; // ID for the project
+// End: Configuration for development =================================================================
+// ====================================================================================================
 
 // Angular App
 var myApp = angular.module('pmoReport', []);
@@ -25,8 +29,6 @@ myApp.config(function($interpolateProvider) {
 
 // list of dependencies
 myApp.controller('MainCtrl',['$scope', '$http','$q', '$anchorScroll', '$location', function($scope, $http, $q, $anchorScroll, $location) {
-
-    s = $scope;
 
     /**
      * This is the main function to make API calls. It will store the data to the model based on the type
@@ -70,13 +72,13 @@ myApp.controller('MainCtrl',['$scope', '$http','$q', '$anchorScroll', '$location
         // configuration object for http calls
         var config = {
             params : {
-                "workspace" : "https://rally1.rallydev.com/slm/webservice/v2.0/workspace/19718879730",
+                "workspace" : "https://rally1.rallydev.com/slm/webservice/v2.0/workspace/" + workspace,
                 "query" : "",
                 // "fetch" : fetchArray.toString(),
                 "fetch" : true,
                 "start" : startIndex,
                 "pagesize" : 200,
-                "project" : "https://rally1.rallydev.com/slm/webservice/v2.0/project/25211977995",
+                "project" : "https://rally1.rallydev.com/slm/webservice/v2.0/project/" + project,
                 "projectScopeDown" : true,
                 "projectScopeUp" : false,
                 "key": "ae437b95-d241-4320-ad81-bd0681947c89"
@@ -114,6 +116,8 @@ myApp.controller('MainCtrl',['$scope', '$http','$q', '$anchorScroll', '$location
     };
 
     $scope.init = function() {
+        $scope.RL = []; // list of release lines
+
         // Make the data call
         $q.all([
             $scope.queryArtifactsAndStore("release"), // first get releases
@@ -138,8 +142,7 @@ myApp.controller('MainCtrl',['$scope', '$http','$q', '$anchorScroll', '$location
 
     };
 
-    $scope.RL = [];
-
+    // Function to render timeline: this is done by creating items and organizing them in groups.
     $scope.buildTimeline = function() {
 
         // Get epic data in timeline format
@@ -345,6 +348,7 @@ myApp.controller('MainCtrl',['$scope', '$http','$q', '$anchorScroll', '$location
         }
     };
 
+    // function to build details link
     var buildReferenceLink = function(obj) {
         var baseURL = "https://us1.rallydev.com/#/";
         var type = obj._type;
@@ -364,20 +368,9 @@ myApp.controller('MainCtrl',['$scope', '$http','$q', '$anchorScroll', '$location
         }
         return baseURL + projectID + addOn;
     };
-    var showError = function(message) {
-        $scope.errorMessage = message;
-        $('#errorModal').modal('show');
-    };
 
     $scope.init();
 }]);
-
-myApp.directive('hlsTicket', function() {
-    return {
-        templateUrl: "ticket.html"
-    };
-});
-
 
 
 
